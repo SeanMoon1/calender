@@ -1,0 +1,352 @@
+.schedule-view-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.schedule-header {
+  text-align: center;
+  margin-bottom: 40px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(255, 154, 158, 0.2);
+  padding: 30px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.schedule-header h1 {
+  font-size: 32px;
+  color: #8b4513;
+  margin-bottom: 20px;
+}
+
+.additional-info {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 154, 158, 0.3);
+}
+
+.additional-info h3 {
+  font-size: 18px;
+  color: #8b4513;
+  margin-bottom: 10px;
+}
+
+.additional-info p {
+  color: #a0522d;
+  line-height: 1.6;
+}
+
+.schedule-content {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(255, 154, 158, 0.2);
+  padding: 30px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.date-selector {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.date-selector h3 {
+  font-size: 18px;
+  color: #8b4513;
+  margin-bottom: 15px;
+}
+
+.date-input {
+  padding: 14px;
+  border: 1px solid #ff9a9e;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  min-width: 200px;
+  min-height: 48px;
+  background: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: #ff6b6b;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.selected-date {
+  font-size: 14px;
+  color: #a0522d;
+  font-style: italic;
+}
+
+.time-slots-section h3 {
+  font-size: 20px;
+  color: #8b4513;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.no-slots {
+  text-align: center;
+  padding: 40px;
+  color: #a0522d;
+}
+
+.no-slots p {
+  margin-bottom: 10px;
+}
+
+.time-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.time-slot {
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  border: 2px solid transparent;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.time-slot.available {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+  border-color: #ff6b6b;
+  color: #8b4513;
+}
+
+.time-slot.available:hover {
+  background: linear-gradient(135deg, #ff8e8e 0%, #fecfef 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+.time-slot.booked {
+  background: linear-gradient(135deg, #ffd89b 0%, #ffb347 100%);
+  border-color: #ff8c42;
+  color: #8b4513;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.time-range {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.booked-label {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.appointment-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.appointment-form-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(255, 154, 158, 0.3);
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.error-message {
+  text-align: center;
+  padding: 60px 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(255, 154, 158, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.error-message h2 {
+  color: #ff6b6b;
+  margin-bottom: 20px;
+}
+
+.error-message p {
+  color: #a0522d;
+}
+
+/* Tablet Styles */
+@media (max-width: 768px) {
+  .schedule-view-container {
+    padding: 15px;
+  }
+  
+  .schedule-header {
+    padding: 25px;
+    border-radius: 10px;
+  }
+  
+  .schedule-header h1 {
+    font-size: 28px;
+  }
+  
+  .schedule-content {
+    padding: 25px;
+    border-radius: 10px;
+  }
+  
+  .date-input {
+    padding: 12px;
+    font-size: 16px;
+    min-height: 44px;
+  }
+  
+  .time-slots-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+  }
+  
+  .time-slot {
+    padding: 15px;
+    min-height: 70px;
+  }
+  
+  .time-range {
+    font-size: 14px;
+  }
+  
+  .appointment-form-container {
+    margin: 15px;
+    border-radius: 10px;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 480px) {
+  .schedule-view-container {
+    padding: 10px;
+  }
+  
+  .schedule-header {
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .schedule-header h1 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .schedule-content {
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .date-selector h3,
+  .time-slots-section h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  
+  .date-input {
+    padding: 12px;
+    font-size: 16px;
+    min-height: 44px;
+    min-width: 100%;
+  }
+  
+  .time-slots-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .time-slot {
+    padding: 15px;
+    min-height: 60px;
+  }
+  
+  .time-range {
+    font-size: 14px;
+  }
+  
+  .booked-label {
+    font-size: 9px;
+    padding: 1px 6px;
+  }
+  
+  .appointment-form-overlay {
+    padding: 10px;
+  }
+  
+  .appointment-form-container {
+    margin: 10px;
+    border-radius: 8px;
+  }
+  
+  .error-message {
+    padding: 40px 15px;
+    border-radius: 8px;
+  }
+  
+  .error-message h2 {
+    font-size: 20px;
+  }
+}
+
+/* Small Mobile Styles */
+@media (max-width: 360px) {
+  .schedule-view-container {
+    padding: 8px;
+  }
+  
+  .schedule-header {
+    padding: 15px;
+  }
+  
+  .schedule-header h1 {
+    font-size: 22px;
+  }
+  
+  .schedule-content {
+    padding: 15px;
+  }
+  
+  .time-slot {
+    padding: 12px;
+    min-height: 55px;
+  }
+  
+  .time-range {
+    font-size: 13px;
+  }
+}
