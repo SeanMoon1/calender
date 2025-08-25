@@ -6,11 +6,16 @@ interface TimeSlotManagerProps {
   timeSlots: TimeSlot[];
   onSave: (slots: TimeSlot[]) => Promise<void>;
   loading: boolean;
+  selectedColor?: string;
 }
 
-function TimeSlotManager({ timeSlots, onSave, loading }: TimeSlotManagerProps): JSX.Element {
+function TimeSlotManager({ timeSlots, onSave, loading, selectedColor = '#ff6b6b' }: TimeSlotManagerProps): JSX.Element {
   const [slots, setSlots] = useState<TimeSlot[]>(timeSlots);
-  const [newSlot, setNewSlot] = useState<Omit<TimeSlot, 'id'>>({ startTime: '09:00', endTime: '10:00' });
+  const [newSlot, setNewSlot] = useState<Omit<TimeSlot, 'id'>>({ 
+    startTime: '09:00', 
+    endTime: '10:00',
+    color: selectedColor
+  });
 
   const addTimeSlot = (): void => {
     if (newSlot.startTime >= newSlot.endTime) {
@@ -30,7 +35,7 @@ function TimeSlotManager({ timeSlots, onSave, loading }: TimeSlotManagerProps): 
 
     const updatedSlots = [...slots, { ...newSlot, id: Date.now() }];
     setSlots(updatedSlots);
-    setNewSlot({ startTime: '09:00', endTime: '10:00' });
+    setNewSlot({ startTime: '09:00', endTime: '10:00', color: selectedColor });
   };
 
   const removeTimeSlot = (id: number): void => {
@@ -97,10 +102,23 @@ function TimeSlotManager({ timeSlots, onSave, loading }: TimeSlotManagerProps): 
         ) : (
           <div className="slots-grid">
             {slots.map((slot) => (
-              <div key={slot.id} className="time-slot-item">
-                <span className="time-range">
-                  {slot.startTime} - {slot.endTime}
-                </span>
+              <div 
+                key={slot.id} 
+                className="time-slot-item"
+                style={{ 
+                  borderLeft: `4px solid ${slot.color || '#ff6b6b'}`,
+                  backgroundColor: `${slot.color || '#ff6b6b'}10`
+                }}
+              >
+                <div className="slot-info">
+                  <span className="time-range">
+                    {slot.startTime} - {slot.endTime}
+                  </span>
+                  <div 
+                    className="color-indicator"
+                    style={{ backgroundColor: slot.color || '#ff6b6b' }}
+                  />
+                </div>
                 <button
                   onClick={() => removeTimeSlot(slot.id)}
                   className="remove-btn"

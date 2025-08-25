@@ -225,10 +225,20 @@ function ScheduleView(): JSX.Element {
                     key={index}
                     className={`time-slot ${isBooked ? 'booked' : 'available'}`}
                     onClick={() => !isBooked && handleSlotClick(slot)}
+                    style={{
+                      backgroundColor: isBooked ? undefined : `${slot.color || '#ff6b6b'}15`,
+                      borderColor: isBooked ? undefined : slot.color || '#ff6b6b'
+                    }}
                   >
                     <span className="time-range">
                       {slot.startTime} - {slot.endTime}
                     </span>
+                    {!isBooked && slot.color && (
+                      <div 
+                        className="color-indicator"
+                        style={{ backgroundColor: slot.color }}
+                      />
+                    )}
                     {isBooked && <span className="booked-label">예약됨</span>}
                   </div>
                 );

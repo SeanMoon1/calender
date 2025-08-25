@@ -76,14 +76,37 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px;
-  background: #f8f9fa;
+  background: white;
   border-radius: 6px;
   border: 1px solid #e9ecef;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.time-slot-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.slot-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
 }
 
 .time-range {
   font-weight: 500;
   color: #333;
+}
+
+.color-indicator {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 0 1px #ddd;
+  flex-shrink: 0;
 }
 
 .remove-btn {
@@ -94,11 +117,13 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 12px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .remove-btn:hover {
   background-color: #c82333;
+  transform: scale(1.05);
 }
 
 .save-section {
@@ -130,5 +155,9 @@
     flex-direction: column;
     gap: 10px;
     text-align: center;
+  }
+  
+  .slot-info {
+    justify-content: center;
   }
 }

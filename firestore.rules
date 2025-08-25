@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 사용자 문서 규칙
+    match /users/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // 시간대 문서 규칙
+    match /timeSlots/{timeSlotId} {
+      allow read: if true; // 모든 사용자가 읽기 가능 (공개 스케줄)
+      allow write: if request.auth != null && 
+        timeSlotId.matches(request.auth.uid + '_.*'); // 호스트만 자신의 시간대 수정 가능
+    }
+    
+    // 예약 문서 규칙
+    match /appointments/{appointmentId} {
+      allow read: if request.auth != null && 
+        (resource.data.hostId == request.auth.uid || 
+         resource.data.clientEmail == request.auth.token.email);
+      allow create: if request.auth != null; // 로그인한 사용자만 예약 생성 가능
+      allow update, delete: if request.auth != null && 
+        resource.data.hostId == request.auth.uid; // 호스트만 수정/삭제 가능
+    }
+  }
+}

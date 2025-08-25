@@ -11,6 +11,7 @@ export interface TimeSlot {
   id: number;
   startTime: string;
   endTime: string;
+  color?: string;
 }
 
 export interface Appointment {

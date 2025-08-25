@@ -13,6 +13,13 @@ function Calendar(): JSX.Element {
   const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);
   const [loading, setLoading] = useState(false);
   const [additionalInfo, setAdditionalInfo] = useState('');
+  const [selectedColor, setSelectedColor] = useState('#ff6b6b');
+
+  // Predefined colors for time slots
+  const colorOptions = [
+    '#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3',
+    '#54a0ff', '#5f27cd', '#00d2d3', '#ff9f43', '#10ac84', '#ee5a24'
+  ];
 
   useEffect(() => {
     if (currentUser) {
@@ -101,6 +108,10 @@ function Calendar(): JSX.Element {
     setSelectedDate(date);
   };
 
+  const handleColorSelect = (color: string): void => {
+    setSelectedColor(color);
+  };
+
   const formatDate = (date: Date): string => {
     return date.toLocaleDateString('ko-KR', {
       year: 'numeric',
@@ -144,6 +155,25 @@ function Calendar(): JSX.Element {
             </p>
           </div>
 
+          <div className="color-picker-section">
+            <h3>시간대 색상 선택</h3>
+            <div className="color-picker-grid">
+              {colorOptions.map((color) => (
+                <div
+                  key={color}
+                  className={`color-option ${selectedColor === color ? 'selected' : ''}`}
+                  style={{ backgroundColor: color }}
+                  data-color={color}
+                  onClick={() => handleColorSelect(color)}
+                  title={`색상: ${color}`}
+                />
+              ))}
+            </div>
+            <p style={{ fontSize: '12px', color: '#666', marginTop: '10px' }}>
+              선택한 색상이 새로운 시간대에 적용됩니다.
+            </p>
+          </div>
+
           <div className="additional-info-section">
             <h3>추가 정보 설정</h3>
             <textarea
@@ -176,6 +206,7 @@ function Calendar(): JSX.Element {
               timeSlots={timeSlots}
               onSave={saveTimeSlots}
               loading={loading}
+              selectedColor={selectedColor}
             />
           )}
         </div>
