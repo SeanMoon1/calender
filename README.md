@@ -1,153 +1,156 @@
-# Freelancer Calendar
+# Freelancer Calendar - 일정 관리 웹 서비스
 
-프리랜서를 위한 일정 관리 웹 서비스입니다. React Hook과 TypeScript를 활용한 MPA(Multi-Page Application)로 개발되었으며, Firebase를 사용하여 배포할 수 있습니다.
+프리랜서를 위한 일정 관리 웹 서비스입니다. 호스트가 자신의 가능한 시간을 설정하고, 클라이언트가 예약을 신청할 수 있는 플랫폼입니다.
 
-## 주요 기능
+## 🚀 주요 기능
 
-### 🔐 사용자 인증
-- 회원가입 및 로그인 기능
-- Google OAuth 로그인 지원
-- 닉네임 기반 고유 URL 생성 (`/닉네임`)
+- **호스트 기능**
+  - 회원가입 및 로그인 (이메일/비밀번호, Google OAuth)
+  - 캘린더를 통한 시간대 설정 (분 단위)
+  - 시간대별 색상 커스터마이징
+  - 예약 관리 및 확인
+  - 추가 정보 설정 (Zoom 링크 등)
 
-### 📅 일정 관리
-- 날짜별 가능한 시간 설정
-- 분 단위까지 정확한 시간 설정
-- 기본적으로 모든 시간이 잠겨있어 안전한 관리
+- **클라이언트 기능**
+  - 호스트의 공개 스케줄 확인
+  - 예약 신청 (이름, 이메일 필수)
+  - 예약 상태 확인
 
-### 🔗 일정 공유
-- 개인 링크를 통한 일정 공유
-- 비로그인 사용자도 일정 확인 및 예약 가능
+## 🛠 기술 스택
 
-### 📧 예약 시스템
-- 이름과 이메일을 통한 일정 예약
-- 추가 정보 입력 가능 (미팅 목적, 요청사항 등)
-- 자동 이메일 알림 기능 (구현 예정)
+- **Frontend**: React 18, TypeScript
+- **Backend**: Firebase (Authentication, Firestore, Hosting)
+- **Styling**: CSS3, 반응형 디자인
+- **State Management**: React Context API
+- **Routing**: React Router DOM v6
+- **UI Components**: React Calendar, React Time Picker
+- **Notifications**: React Hot Toast
 
-### 💬 추가 정보 설정
-- Zoom 링크, 미팅룸 정보 등 추가 정보 설정
-- 예약자에게 자동으로 전달
+## 📁 프로젝트 구조
 
-## 기술 스택
+```
+src/
+├── components/          # 재사용 가능한 컴포넌트
+│   ├── Navbar.tsx
+│   ├── TimeSlotManager.tsx
+│   └── AppointmentForm.tsx
+├── contexts/           # React Context
+│   └── AuthContext.tsx
+├── pages/             # 페이지 컴포넌트
+│   ├── auth/          # 인증 관련 페이지
+│   ├── calendar/      # 캘린더 관리
+│   ├── dashboard/     # 대시보드
+│   └── schedule/      # 스케줄 뷰
+├── firebase/          # Firebase 설정
+│   └── config.ts
+├── types/             # TypeScript 타입 정의
+│   └── index.ts
+├── utils/             # 유틸리티 함수
+│   ├── validation.ts
+│   └── errorHandler.ts
+├── constants/         # 상수 정의
+│   └── index.ts
+└── App.tsx           # 메인 앱 컴포넌트
+```
 
-- **Frontend**: React 18, TypeScript, React Router DOM
-- **Backend**: Firebase (Authentication, Firestore)
-- **Styling**: CSS3, Responsive Design
-- **Deployment**: Firebase Hosting
+## 🚀 설치 및 실행
 
-## 설치 및 실행
+### 1. 저장소 클론
+```bash
+git clone <repository-url>
+cd calender
+```
 
-### 1. 의존성 설치
+### 2. 의존성 설치
 ```bash
 npm install
 ```
 
-### 2. Firebase 설정
-1. Firebase 프로젝트 생성
-2. Authentication에서 Google 로그인 활성화
-3. `src/firebase/config.ts` 파일에서 Firebase 설정 정보 입력
-4. Firestore 데이터베이스 생성 및 보안 규칙 설정
+### 3. 환경변수 설정
+`.env` 파일을 프로젝트 루트에 생성하고 Firebase 설정을 추가:
 
-### 3. 개발 서버 실행
+```env
+REACT_APP_FIREBASE_API_KEY=your_api_key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
+REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+REACT_APP_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+REACT_APP_FIREBASE_APP_ID=your_app_id
+```
+
+### 4. 개발 서버 실행
 ```bash
 npm start
 ```
 
-### 4. 빌드 및 배포
+### 5. 빌드 및 배포
 ```bash
+# 프로덕션 빌드
 npm run build
+
+# Firebase 배포
 npm run deploy
 ```
 
-## 프로젝트 구조
+## 📋 사용 가능한 스크립트
 
-```
-src/
-├── components/              # 재사용 가능한 컴포넌트
-│   ├── Navbar.tsx          # 네비게이션 바
-│   ├── TimeSlotManager.tsx # 시간대 관리
-│   └── AppointmentForm.tsx # 예약 폼
-├── contexts/               # React Context
-│   └── AuthContext.tsx     # 인증 상태 관리
-├── pages/                  # 페이지 컴포넌트
-│   ├── Home.tsx           # 홈 페이지
-│   ├── auth/              # 인증 관련 페이지
-│   │   ├── Login.tsx      # 로그인 페이지
-│   │   ├── Register.tsx   # 회원가입 페이지
-│   │   └── Auth.css       # 인증 페이지 스타일
-│   ├── dashboard/         # 대시보드 관련 페이지
-│   │   ├── Dashboard.tsx  # 대시보드
-│   │   └── Dashboard.css  # 대시보드 스타일
-│   ├── calendar/          # 캘린더 관련 페이지
-│   │   ├── Calendar.tsx   # 캘린더 관리
-│   │   └── Calendar.css   # 캘린더 스타일
-│   └── schedule/          # 예약 관련 페이지
-│       ├── ScheduleView.tsx # 일정 확인 페이지
-│       └── ScheduleView.css # 일정 확인 스타일
-├── firebase/              # Firebase 설정
-│   └── config.ts          # Firebase 설정
-├── types/                 # TypeScript 타입 정의
-│   └── index.ts           # 공통 타입 정의
-├── App.tsx                # 메인 앱 컴포넌트
-└── index.tsx              # 앱 진입점
-```
+- `npm start` - 개발 서버 실행
+- `npm run build` - 프로덕션 빌드
+- `npm run deploy` - 전체 Firebase 배포
+- `npm run deploy:hosting` - Hosting만 배포
+- `npm run deploy:firestore` - Firestore 규칙만 배포
+- `npm run type-check` - TypeScript 타입 체크
+- `npm run clean` - 빌드 캐시 정리
 
-## 사용 방법
+## 🔧 개발 가이드라인
 
-### 호스트 (프리랜서)
-1. 회원가입 후 로그인
-2. 캘린더에서 가능한 시간 설정
-3. 대시보드에서 공유 링크 확인
-4. 링크를 클라이언트에게 공유
+### 코드 스타일
+- TypeScript strict 모드 사용
+- 함수형 컴포넌트와 React Hooks 사용
+- 일관된 네이밍 컨벤션 (camelCase)
+- 적절한 타입 정의 및 인터페이스 사용
 
-### 클라이언트 (예약자)
-1. 호스트가 공유한 링크 접속
-2. 원하는 날짜 선택
-3. 가능한 시간대 확인
-4. 시간대 클릭하여 예약 폼 작성
-5. 이름, 이메일, 추가 정보 입력 후 예약
+### 폴더 구조
+- 기능별로 폴더 분리
+- 컴포넌트와 스타일 파일 함께 배치
+- 유틸리티 함수는 별도 폴더에 분리
 
-## Firebase 설정
+### 에러 처리
+- 중앙화된 에러 핸들링
+- 사용자 친화적인 에러 메시지
+- 적절한 로딩 상태 관리
 
-### Firestore 보안 규칙
-```javascript
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    // 사용자 문서
-    match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
-    
-    // 시간대 문서
-    match /timeSlots/{timeSlotId} {
-      allow read: if true;  // 모든 사용자가 읽기 가능
-      allow write: if request.auth != null && 
-        timeSlotId.matches(request.auth.uid + '_.*');
-    }
-    
-    // 예약 문서
-    match /appointments/{appointmentId} {
-      allow read, write: if request.auth != null;
-    }
-  }
-}
-```
+## 🔒 보안
 
-## TypeScript 특징
+- Firebase 보안 규칙 적용
+- 사용자 인증 및 권한 관리
+- 입력값 검증 및 sanitization
 
-- **타입 안전성**: 모든 컴포넌트와 함수에 타입 정의
-- **인터페이스**: 공통 타입을 `src/types/index.ts`에서 관리
-- **엄격한 타입 검사**: 컴파일 타임에 오류 감지
-- **자동완성**: IDE에서 향상된 개발 경험
+## 📱 반응형 디자인
 
-## 라이선스
+- 모바일 우선 접근법
+- CSS Grid 및 Flexbox 활용
+- 다양한 화면 크기 지원
 
-MIT License
+## 🚀 배포
 
-## 기여하기
+Firebase Hosting을 통해 배포됩니다:
+- URL: https://calender-control-2025.web.app
+- 자동 HTTPS 적용
+- CDN을 통한 빠른 로딩
+
+## 🤝 기여하기
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+## 📄 라이선스
+
+이 프로젝트는 MIT 라이선스 하에 배포됩니다.
+
+## 📞 문의
+
+프로젝트에 대한 문의사항이 있으시면 이슈를 생성해주세요.

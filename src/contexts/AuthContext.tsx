@@ -12,6 +12,7 @@ import {
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase/config';
 import { User, AuthContextType } from '../types';
+import { sanitizeNickname } from '../utils/validation';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -32,17 +33,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [loading, setLoading] = useState(true);
 
   async function signup(email: string, password: string, nickname: string) {
+    // 닉네임 정규화
+    const sanitizedNickname = sanitizeNickname(nickname);
+    
     const result = await createUserWithEmailAndPassword(auth, email, password);
     
-    // Update profile with nickname
+    // Update profile with sanitized nickname
     await updateProfile(result.user, {
-      displayName: nickname
+      displayName: sanitizedNickname
     });
 
     // Create user document in Firestore
     await setDoc(doc(db, 'users', result.user.uid), {
       email,
-      nickname,
+      nickname: sanitizedNickname,
       createdAt: new Date(),
       isHost: true
     });
@@ -63,10 +67,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
     
     if (!userDoc.exists()) {
       // Create user document for new Google user
-      const nickname = result.user.displayName || result.user.email?.split('@')[0] || 'user';
+      const displayName = result.user.displayName || result.user.email?.split('@')[0] || 'user';
+      const sanitizedNickname = sanitizeNickname(displayName);
+      
       await setDoc(doc(db, 'users', result.user.uid), {
         email: result.user.email,
-        nickname,
+        nickname: sanitizedNickname,
         createdAt: new Date(),
         isHost: true
       });
@@ -95,10 +101,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
           setCurrentUser(userData);
         } else {
           // Fallback if userData is null
+          const displayName = user.displayName || user.email?.split('@')[0] || 'user';
+          const sanitizedNickname = sanitizeNickname(displayName);
+          
           setCurrentUser({
             uid: user.uid,
             email: user.email || '',
-            nickname: user.displayName || user.email?.split('@')[0] || 'user',
+            nickname: sanitizedNickname,
             isHost: true,
             createdAt: new Date()
           });

@@ -42,3 +42,19 @@ export interface AuthContextType {
   logout: () => Promise<void>;
   getUserData: (uid: string) => Promise<User | null>;
 }
+
+// 추가 타입 정의
+export interface FirebaseError {
+  code: string;
+  message: string;
+}
+
+export interface LoadingState {
+  isLoading: boolean;
+  error: string | null;
+}
+
+export interface FormValidation {
+  isValid: boolean;
+  errors: Record<string, string>;
+}

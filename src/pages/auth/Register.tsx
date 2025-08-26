@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { validateNickname, sanitizeNickname } from '../../utils/validation';
 import toast from 'react-hot-toast';
 import './Auth.css';
 
@@ -13,6 +14,13 @@ function Register(): JSX.Element {
   const [googleLoading, setGoogleLoading] = useState(false);
   const { signup, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
+
+  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    // 실시간으로 닉네임 정규화
+    const sanitized = sanitizeNickname(value);
+    setNickname(sanitized);
+  };
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
@@ -32,15 +40,8 @@ function Register(): JSX.Element {
       return;
     }
 
-    if (nickname.length < 2) {
-      toast.error('닉네임은 최소 2자 이상이어야 합니다.');
-      return;
-    }
-
-    // 닉네임에 특수문자나 공백이 있는지 확인
-    const nicknameRegex = /^[a-zA-Z0-9가-힣]+$/;
-    if (!nicknameRegex.test(nickname)) {
-      toast.error('닉네임은 영문, 숫자, 한글만 사용 가능합니다.');
+    if (!validateNickname(nickname)) {
+      toast.error('닉네임은 2-20자의 소문자 영어와 숫자만 사용 가능합니다.');
       return;
     }
 
@@ -111,19 +112,6 @@ function Register(): JSX.Element {
           </div>
           
           <div className="form-group">
-            <label htmlFor="nickname">닉네임</label>
-            <input
-              type="text"
-              id="nickname"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-              required
-              placeholder="닉네임을 입력하세요 (영문, 숫자, 한글)"
-            />
-            <small>닉네임은 URL에 사용됩니다. (예: /your-nickname)</small>
-          </div>
-          
-          <div className="form-group">
             <label htmlFor="password">비밀번호</label>
             <input
               type="password"
@@ -147,15 +135,30 @@ function Register(): JSX.Element {
             />
           </div>
           
+          <div className="form-group">
+            <label htmlFor="nickname">닉네임</label>
+            <input
+              type="text"
+              id="nickname"
+              value={nickname}
+              onChange={handleNicknameChange}
+              required
+              placeholder="소문자 영어와 숫자만 사용 (2-20자)"
+              maxLength={20}
+            />
+            <small className="form-help">
+              소문자 영어(a-z)와 숫자(0-9)만 사용 가능합니다. 
+              대문자는 자동으로 소문자로 변환됩니다.
+            </small>
+          </div>
+          
           <button type="submit" className="btn btn-primary" disabled={loading}>
             {loading ? '회원가입 중...' : '회원가입'}
           </button>
         </form>
         
         <div className="auth-footer">
-          <p>
-            이미 계정이 있으신가요? <Link to="/login">로그인</Link>
-          </p>
+          <p>이미 계정이 있으신가요? <Link to="/login">로그인</Link></p>
         </div>
       </div>
     </div>
