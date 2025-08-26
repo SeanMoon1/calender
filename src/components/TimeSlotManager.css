@@ -37,12 +37,26 @@
   color: #333;
 }
 
-.time-input-group select {
+.time-input-group select,
+.time-input-group input {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 14px;
   background-color: white;
+  transition: all 0.3s ease;
+}
+
+.time-input-group input:focus {
+  outline: none;
+  border-color: #ff6b6b;
+  box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.1);
+}
+
+.time-input-group small {
+  font-size: 11px;
+  color: #666;
+  margin-top: 2px;
 }
 
 .time-slots-list {

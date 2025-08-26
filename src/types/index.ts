@@ -12,6 +12,7 @@ export interface TimeSlot {
   startTime: string;
   endTime: string;
   color?: string;
+  date?: string; // 날짜 정보 추가
 }
 
 export interface Appointment {

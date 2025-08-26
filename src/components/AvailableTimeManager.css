@@ -1,0 +1,200 @@
+.available-time-manager {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.add-available-time {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #e9ecef;
+}
+
+.add-available-time h4 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.description {
+  margin: 0 0 15px 0;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.time-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.time-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.time-input-group label {
+  font-weight: 500;
+  color: #333;
+  font-size: 14px;
+}
+
+.time-input {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.time-input:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.time-input-group small {
+  color: #666;
+  font-size: 12px;
+}
+
+.available-times-list {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #e9ecef;
+}
+
+.available-times-list h4 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.no-slots {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border: 1px dashed #ddd;
+}
+
+.slots-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.available-time-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.available-time-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.slot-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.time-range {
+  font-weight: 500;
+  color: #333;
+  font-size: 14px;
+}
+
+.color-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.remove-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.remove-btn:hover {
+  background: #c82333;
+  transform: translateY(-1px);
+}
+
+.save-section {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.save-section .btn {
+  min-width: 120px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .add-available-time,
+  .available-times-list {
+    padding: 15px;
+  }
+  
+  .time-inputs {
+    gap: 12px;
+  }
+  
+  .available-time-item {
+    padding: 10px 12px;
+  }
+  
+  .time-range {
+    font-size: 13px;
+  }
+  
+  .remove-btn {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .add-available-time,
+  .available-times-list {
+    padding: 12px;
+  }
+  
+  .available-time-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .slot-info {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .remove-btn {
+    align-self: flex-end;
+  }
+}
