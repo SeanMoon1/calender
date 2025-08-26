@@ -2,6 +2,7 @@
   "name": "freelancer-calendar",
   "version": "1.0.0",
   "description": "Freelancer Schedule Management Service",
+  "homepage": "./",
   "main": "index.js",
   "scripts": {
     "start": "react-scripts start",
